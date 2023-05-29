@@ -23,7 +23,7 @@ if ping -q -c 1 -W 1 google.com >/dev/null; then
         chmod +x "$PINEAPPLE_DIR/$filename"
 
         # Link to YUZU_EA
-        ln -sf "$PINEAPPLE_DIR/$filename" "$YUZU_EA"
+        ln -srf "$PINEAPPLE_DIR/$filename" "$YUZU_EA"
     fi
 
 fi
