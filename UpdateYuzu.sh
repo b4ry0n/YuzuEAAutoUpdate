@@ -1,7 +1,7 @@
 #! /bin/bash
 
 YUZU_DIR=/home/deck/Applications
-YUZU_EA="$YUZU_DIR"/yuzu-ea.AppImage
+YUZU_EA="$YUZU_DIR"/yuzu-pea.AppImage
 PINEAPPLE_DIR="$YUZU_DIR"/pineappleEA
 
 # Check if internet access exists
@@ -29,4 +29,4 @@ if ping -q -c 1 -W 1 google.com >/dev/null; then
 fi
 
 # Launch Yuzu EA
-"$YUZU_EA"
+"$YUZU_EA" "$@"
