@@ -1,32 +1,32 @@
 #! /bin/bash
 
-YUZU_DIR=/home/deck/Applications
-YUZU_EA="$YUZU_DIR"/yuzu-pea.AppImage
-PINEAPPLE_DIR="$YUZU_DIR"/pineappleEA
+APP_DIR="$HOME"/Applications
+YUZU_EA_LATEST="$APP_DIR"/yuzu-ea-latest.AppImage
+YUZU_EA_DIR="$APP_DIR"/YuzuEA
 
 # Check if internet access exists
 if ping -q -c 1 -W 1 google.com >/dev/null; then
 
-    mkdir -p $PINEAPPLE_DIR
+    mkdir -p "$YUZU_EA_DIR"
 
     asset=$(curl -s https://api.github.com/repos/pineappleEA/pineapple-src/releases/latest | jq -r '.assets[] | select(.name|endswith(".AppImage"))')
 
     filename=$(jq -nr --argjson asset "$asset" '$asset.name')
     download_url=$(jq -nr --argjson asset "$asset" '$asset.browser_download_url')
 
-    if [[ ! -e "$PINEAPPLE_DIR/$filename" ]]; then
+    if [[ ! -e "$YUZU_EA_DIR/$filename" ]]; then
 
         # Download latest Yuzu EA
-        curl -sL "$download_url" -o "$PINEAPPLE_DIR/$filename"
+        curl -sL "$download_url" -o "$YUZU_EA_DIR/$filename"
 
         # Give it executable permissions
-        chmod +x "$PINEAPPLE_DIR/$filename"
+        chmod +x "$YUZU_EA_DIR/$filename"
 
-        # Link to YUZU_EA
-        ln -srf "$PINEAPPLE_DIR/$filename" "$YUZU_EA"
+        # Link to latest
+        ln -srf "$YUZU_EA_DIR/$filename" "$YUZU_EA_LATEST"
     fi
 
 fi
 
-# Launch Yuzu EA
-"$YUZU_EA" "$@"
+# Launch Yuzu EA latest
+"$YUZU_EA_LATEST" "$@"
